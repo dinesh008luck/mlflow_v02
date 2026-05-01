@@ -20,9 +20,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 max_depth = 1
 n_estimators = 100
 
-# apply mlflow
-mlflow.tra
+# apply dagshub
+mlflow.set_tracking_uri("https://dagshub.com/dinesh008luck/mlflow_v02.mlflow")
 
+import dagshub
+dagshub.init(repo_owner='dinesh008luck', repo_name='mlflow_v02', mlflow=True)
+
+# apply mlflow
 mlflow.set_experiment('iris-rf')
 
 with mlflow.start_run():
