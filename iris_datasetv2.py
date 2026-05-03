@@ -66,4 +66,23 @@ with mlflow.start_run():
     mlflow.set_tag('author','Dinesh')
     mlflow.set_tag('model','decision_tree')
 
+    # loging dataset
+    import pandas as pd
+
+    # Convert to DataFrame
+    train_df = pd.DataFrame(X_train, columns=iris.feature_names)
+    train_df["variety"] = y_train
+
+    test_df = pd.DataFrame(X_test, columns=iris.feature_names)
+    test_df["variety"] = y_test
+
+    # Convert to MLflow dataset
+    train_dataset = mlflow.data.from_pandas(train_df)
+    test_dataset = mlflow.data.from_pandas(test_df)
+
+    # Log datasets
+    mlflow.log_input(train_dataset, context="train")
+    mlflow.log_input(test_dataset, context="test")
+
+
     print('accuracy:', accuracy)
